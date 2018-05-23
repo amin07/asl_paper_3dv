@@ -1,0 +1,158 @@
+\begin{thebibliography}{10}\itemsep=-1pt
+
+\bibitem{DBLP:journals/corr/ChoMGBSB14}
+K.~Cho, B.~van Merrienboer, {\c{C}}.~G{\"{u}}l{\c{c}}ehre, F.~Bougares,
+  H.~Schwenk, and Y.~Bengio.
+\newblock Learning phrase representations using {RNN} encoder-decoder for
+  statistical machine translation.
+\newblock {\em CoRR}, abs/1406.1078, 2014.
+
+\bibitem{Cooper2017}
+H.~Cooper, E.-J. Ong, N.~Pugeault, and R.~Bowden.
+\newblock {\em Sign Language Recognition Using Sub-units}, pages 89--118.
+\newblock Springer International Publishing, Cham, 2017.
+
+\bibitem{7298714}
+Y.~Du, W.~Wang, and L.~Wang.
+\newblock Hierarchical recurrent neural network for skeleton based action
+  recognition.
+\newblock In {\em 2015 IEEE Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pages 1110--1118, June 2015.
+
+\bibitem{Hochreiter:1997:LSM:1246443.1246450}
+S.~Hochreiter and J.~Schmidhuber.
+\newblock Long short-term memory.
+\newblock {\em Neural Comput.}, 9(8):1735--1780, Nov. 1997.
+
+\bibitem{7177428}
+J.~Huang, W.~Zhou, H.~Li, and W.~Li.
+\newblock Sign language recognition using 3d convolutional neural networks.
+\newblock In {\em 2015 IEEE International Conference on Multimedia and Expo
+  (ICME)}, pages 1--6, June 2015.
+
+\bibitem{Ji:2013:CNN:2412386.2412939}
+S.~Ji, W.~Xu, M.~Yang, and K.~Yu.
+\newblock 3d convolutional neural networks for human action recognition.
+\newblock {\em IEEE Trans. Pattern Anal. Mach. Intell.}, 35(1):221--231, Jan.
+  2013.
+
+\bibitem{DBLP:conf/cvpr/KeBASB17}
+Q.~Ke, M.~Bennamoun, S.~An, F.~A. Sohel, and F.~Boussa{\"{\i}}d.
+\newblock A new representation of skeleton sequences for 3d action recognition.
+\newblock In {\em 2017 {IEEE} Conference on Computer Vision and Pattern
+  Recognition, {CVPR} 2017, Honolulu, HI, USA, July 21-26, 2017}, pages
+  4570--4579, 2017.
+
+\bibitem{DBLP:journals/corr/KingmaB14}
+D.~P. Kingma and J.~Ba.
+\newblock Adam: {A} method for stochastic optimization.
+\newblock {\em CoRR}, abs/1412.6980, 2014.
+
+\bibitem{NIPS2012_4824}
+A.~Krizhevsky, I.~Sutskever, and G.~E. Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In F.~Pereira, C.~J.~C. Burges, L.~Bottou, and K.~Q. Weinberger,
+  editors, {\em Advances in Neural Information Processing Systems 25}, pages
+  1097--1105. Curran Associates, Inc., 2012.
+
+\bibitem{3072291}
+P.~Kushalnagar, G.~Mathur, C.~J. Moreland, et~al.
+\newblock Infants and children with hearing loss need early language access.
+\newblock {\em The Journal of clinical ethics}, pages 1--1, 2010.
+
+\bibitem{DBLP:journals/corr/Lipton15}
+Z.~C. Lipton.
+\newblock A critical review of recurrent neural networks for sequence learning.
+\newblock {\em CoRR}, abs/1506.00019, 2015.
+
+\bibitem{DBLP:journals/corr/abs-1711-05941}
+J.~Liu, N.~Akhtar, and A.~Mian.
+\newblock Skepxels: Spatio-temporal image representation of human skeleton
+  joints for action recognition.
+\newblock {\em CoRR}, abs/1711.05941, 2017.
+
+\bibitem{8101019}
+J.~Liu, A.~Shahroudy, D.~Xu, A.~K. Chichung, and G.~Wang.
+\newblock Skeleton-based action recognition using spatio-temporal lstm network
+  with trust gates.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  pages 1--1, 2017.
+
+\bibitem{8226767}
+J.~Liu, G.~Wang, L.~Y. Duan, K.~Abdiyeva, and A.~C. Kot.
+\newblock Skeleton-based human action recognition with global context-aware
+  attention lstm networks.
+\newblock {\em IEEE Transactions on Image Processing}, 27(4):1586--1599, April
+  2018.
+
+\bibitem{doi:10.1080/01690965.2012.705006}
+S.~L. Mattys, M.~H. Davis, A.~R. Bradlow, and S.~K. Scott.
+\newblock Speech recognition in adverse conditions: A review.
+\newblock {\em Language and Cognitive Processes}, 27(7-8):953--978, 2012.
+
+\bibitem{DBLP:journals/corr/abs-1211-5063}
+R.~Pascanu, T.~Mikolov, and Y.~Bengio.
+\newblock Understanding the exploding gradient problem.
+\newblock {\em CoRR}, abs/1211.5063, 2012.
+
+\bibitem{978-3-319-16178-5_40}
+L.~Pigou, S.~Dieleman, P.-J. Kindermans, and B.~Schrauwen.
+\newblock Sign language recognition using convolutional neural networks.
+\newblock In L.~Agapito, M.~M. Bronstein, and C.~Rother, editors, {\em Computer
+  Vision - ECCV 2014 Workshops}, pages 572--578, Cham, 2015. Springer
+  International Publishing.
+
+\bibitem{7780484}
+A.~Shahroudy, J.~Liu, T.~T. Ng, and G.~Wang.
+\newblock Ntu rgb+d: A large scale dataset for 3d human activity analysis.
+\newblock In {\em 2016 IEEE Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pages 1010--1019, June 2016.
+
+\bibitem{song2016end}
+S.~Song, C.~Lan, J.~Xing, W.~Zeng, and J.~Liu.
+\newblock An end-to-end spatio-temporal attention model for human action
+  recognition from skeleton data.
+\newblock In {\em AAAI Conference on Artificial Intelligence}, pages
+  4263--4270, 2017.
+
+\bibitem{Sun:2015:LSV:2753829.2629481}
+C.~Sun, T.~Zhang, and C.~Xu.
+\newblock Latent support vector machine modeling for sign language recognition
+  with kinect.
+\newblock {\em ACM Trans. Intell. Syst. Technol.}, 6(2):20:1--20:20, Mar. 2015.
+
+\bibitem{7410817}
+V.~Veeriah, N.~Zhuang, and G.~J. Qi.
+\newblock Differential recurrent neural networks for action recognition.
+\newblock In {\em 2015 IEEE International Conference on Computer Vision
+  (ICCV)}, pages 4041--4049, Dec 2015.
+
+\bibitem{58337}
+P.~J. Werbos.
+\newblock Backpropagation through time: what it does and how to do it.
+\newblock {\em Proceedings of the IEEE}, 78(10):1550--1560, Oct 1990.
+
+\bibitem{Zafrulla:2011:ASL:2070481.2070532}
+Z.~Zafrulla, H.~Brashear, T.~Starner, H.~Hamilton, and P.~Presti.
+\newblock American sign language recognition with the kinect.
+\newblock In {\em Proceedings of the 13th International Conference on
+  Multimodal Interfaces}, ICMI '11, pages 279--286, New York, NY, USA, 2011.
+  ACM.
+
+\bibitem{copycat_zafrulla}
+Z.~Zafrulla, H.~Brashear, P.~Yin, P.~Presti, T.~Starner, and H.~Hamilton.
+\newblock American sign language phrase verification in an educational game for
+  deaf children, 08 2010.
+
+\bibitem{ZAKI2011572}
+M.~M. Zaki and S.~I. Shaheen.
+\newblock Sign language recognition using a combination of new vision based
+  features.
+\newblock {\em Pattern Recognition Letters}, 32(4):572 -- 577, 2011.
+
+\bibitem{Zhang:2012:MKS:2225053.2225203}
+Z.~Zhang.
+\newblock Microsoft kinect sensor and its effect.
+\newblock {\em IEEE MultiMedia}, 19(2):4--10, Apr. 2012.
+
+\end{thebibliography}

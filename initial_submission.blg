@@ -1,0 +1,10 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: initial_submission.aux
+The style file: ieee.bst
+Database file #1: egbib.bib
+Warning--entry type for "copycat_zafrulla" isn't style-file defined
+--line 1 of file egbib.bib
+A bad cross reference---entry "DBLP:conf/cvpr/KeBASB17"
+refers to entry "DBLP:conf/cvpr/2017", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/cvpr/2017"
+Warning--can't use both author and editor fields in Cooper2017
+(There was 1 error message)
