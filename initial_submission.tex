@@ -395,7 +395,12 @@ against the
 vanishing/exploding gradient problem~\cite{DBLP:journals/corr/ChoMGBSB14}.
 
 \subsection{Long short term memory} \label{lstm_sec}
-As we see from Eq~\ref{eq:rnn_eq}, at each time step, traditional RNN can be seen as a nonlinear function of the current input and the previous step. While vanilla RNN is a direct transformation from the previous state and the current input, LSTM takes a different approach. It maintains an internal memory and it has mechanism to update and use that memory. The mechanism consists of four separate neural networks also called gates. Figure~\ref{fig:lstm_cell} shows a cell of an LSTM network.
+As we see from Eq~\ref{eq:rnn_eq}, at each time step, traditional RNN can be 
+seen as a nonlinear function of the current input and the previous step. While vanilla RNN is a 
+direct transformation from the previous state and the current input, the 
+LSTM takes a different approach. It maintains an internal memory and  has a 
+mechanism to update and use that memory. The mechanism consists of four separate neural networks also 
+called gates. Figure~\ref{fig:lstm_cell} shows a cell of an LSTM network.
 %\begin{figure}[h]
 %	\begin{center}
 %		%\fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
@@ -404,7 +409,9 @@ As we see from Eq~\ref{eq:rnn_eq}, at each time step, traditional RNN can be see
 %	\caption{An LSTM cell}
 %	\label{fig:lstm_cell}
 %\end{figure}
-Forget, input, update and output gate are four different gates represented by four circles and symbolized as $f_t$, $i_t$, $\tilde{C_t}$ and $o_t$ respectively. $\oplus$ and $\otimes$ represents element wise addition and multiplication respectively and $*$ represents matrix multiplication. Two vertical bars inside the rounded rectangle means concatenation operation on its inputs. 
+Forget, input, update and output gates are represented by four circles and symbolized as $f_t$, $i_t$, $\tilde{C_t}$ and $o_t$, respectively. $\oplus$ and $\otimes$ represents element wise addition and multiplication, 
+respectively. $*$ represents matrix multiplication. Two vertical bars inside the rounded rectangle means the 
+concatenation operation on its inputs. 
 \begin{equation}
 \label{eq:lstm_eq}
 	\begin{aligned}
@@ -415,7 +422,16 @@ Forget, input, update and output gate are four different gates represented by fo
 		\mathbf{\tilde{C}_t} &= tanh(W_{\tilde{C}} * concat(\mathbf{h_{t-1}}, \mathbf{x_t}))
 	\end{aligned}
 \end{equation}
-Figure~\ref{fig:lstm_cell} shows input at the current time step $x_t$ and the previous state $h_{t-1}$ enter into the cell and get concatenated. Then the forget gate processes it to remove unnecessary information and outputs $f_t$ which gets multiplied with the previously stored memory $C_t$ and produces a refined memory for the current time. Meanwhile, the input gate and the update gate process the concatenated input and convert it into a candidate memory for the current time step. The refined memory from the previous step and proposed candidate memory of the current step get added to produce the final memory for the current step. This addition could render the output out of scale. Because of that, a squashing function is followed which is a hyperbolic $tan$ in our case. Its job is to scale the elements of the output vector into a fix range. Finally $o_t$, the output from output gate gets multiplied with output from the squashing function and produces the output for the current time step. Eq~\ref{eq:lstm_eq} shows the equations of LSTM where $concat(\mathbf{x},\mathbf{y})$ means concatenation of input vectors $\mathbf{x}$ and $\mathbf{y}$.
+
+Figure~\ref{fig:lstm_cell} shows input at the current time step $x_t$ and the 
+previous state $h_{t-1}$ enter into the cell and get concatenated. Then the forget gate processes it to remove
+unnecessary information and outputs $f_t$ which gets multiplied with the previously 
+stored memory $C_t$ and produces a refined memory for the current time. Meanwhile, the input 
+and  update gate process the concatenated input and convert it into a candidate memory for the current time step. The refined memory from the previous step and proposed candidate memory of the current step get added to produce the final memory for the current step. This addition could render the output out of scale. Because of that, a squashing function (hyperbolic $tan$) is used 
+in our case. This scales the elements of the output vector into a fix range. Finally $o_t$, the output 
+from output gate gets multiplied with output from the squashing function and produces the output for the current time step. Eq~\ref{eq:lstm_eq} shows the equations of LSTM where $concat(\mathbf{x},\mathbf{y})$ is 
+concatenation of input vectors $\mathbf{x}$ and $\mathbf{y}$.
+
 \begin{figure}[h]
 	\begin{center}
 		\begin{subfigure}{.45\textwidth}
@@ -442,8 +458,10 @@ Figure~\ref{fig:lstm_cell} shows input at the current time step $x_t$ and the pr
 	\caption{Implementation of RNN models to recognize ASL from skeletal data. Input at each time step is a concatenation of $3D$ coordinates of $12$ joints denoted by rounded corner input boxes above. $P_i$ is the $(x, y, z)$ of $i^{th}$ joint. Subscript of each input vector represents time step. We used $20$ time steps for each sample data in our experiments as shown above}
 	\label{fig:rnn_impl}
 \end{figure*}
+
 \subsection{Gated recurrent unit}
-A gated recurrent unit (GRU) is another variation of RNN for modeling temporal dynamics of data. It works in the same way as LSTM, but has a simpler construction. Like LSTM it has the mechanism to control flow of information over time, but it lacks the separate memory cell. 
+A gated recurrent unit (GRU) is another variation of RNN for modeling temporal dynamics of data. It works in the same way as LSTM
+but has a simpler construction. Like LSTM it has the mechanism to control flow of information over time but it lacks the separate memory cell. 
 Figure~\ref{fig:gru_cell} shows an example of GRU cell. Symbols represent similar things as described in subsection~\ref{lstm_sec}. 
 %\begin{figure}[h]
 %	\begin{center}
@@ -464,12 +482,31 @@ To better understand GRU cell, first we have to look at the output of it. The ou
 		\mathbf{r_t} &= \sigma(W_r*concat(\mathbf{h_{t-1}}, \mathbf{x_t})) \\
 	\end{aligned}
 \end{equation}
-The term $\tilde{h}_t$ represents newly proposed candidate embedding and $h_{t-1}$ is simply the previous state. Candidate embedding $\tilde{h}_t$ is a function of the current input and purified previous state. This purification is achieved by the reset gate $r_{t}$ whose job is to decide what portion of previous state should contribute to candidate embedding $\tilde{h}_t$. Reset gate $r_{t}$ itself is a separate neural network and its output close to $0$ means network takes a small portion of previous state to form a current candidate state embedding. The update gate $z_{t}$ decides what fractions of the candidate state and the previous state comprise the new state. It does so by taking a weighted some of the candidate state and the previous state. The weights are $z_{t}$ and $1-z_{t}$. This whole new state is outputted where in case of LSTM, the output of the new state is controlled by an output gate as shown in Eq. ~\ref{eq:lstm_eq}.  
+$\tilde{h}_t$ represents the 
+newly proposed candidate embedding and $h_{t-1}$ is simply the previous state. Candidate embedding $\tilde{h}_t$ is a function of the current input and purified previous state. This purification is achieved by the reset gate $r_{t}$, which decides
+what portion of the 
+previous state should contribute to the 
+candidate embedding $\tilde{h}_t$. Reset gate $r_{t}$ itself is a separate neural network and its output close to $0$ means network takes a small portion of previous state to form a current candidate state embedding. The update gate $z_{t}$ decides what fractions of the candidate state and the previous state comprise the new state. It does so by taking a weighted some of the candidate state and the previous state. The weights are $z_{t}$ and $1-z_{t}$. %This whole new state is outputted where in case of LSTM, the output of the new state is controlled by an output gate as shown in Eq. ~\ref{eq:lstm_eq}.  
+
 
 \subsection{Our approach}
-ASL signs are usually performed using two hands, head movements and in some cases facial expressions. Motion dynamics of two hands are primarily responsible for creating different cues for various signs. Each joint in two hands and face area follows a specific sequential pattern for a particular gesture sign. For example, from Figure~\ref{fig:ac_person1} we see the person is performing gesture for \textit{air condition}. We can see that, for this sign first, one has to lift and show palm area of the left hand and then he has to lift both hands and make a back and forth motion with all fingers. This is basically a sequence of joints in both hands. Given the efficacy of variants of RNN in encoding sequential pattern in data, we want to see how those models perform on sequence data like ASL sign. To achieve this goal, we implemented LSTM and GRU model for ASL recognition problem. We notice that, the joints located above the waist are mostly useful in case of sign language. Hence, we take only $12$ joints into consideration in our experiment. These joints come from both hands, head, neck and spine area. Figure~\ref{fig:rnn_impl} shows our implementation. For each time step, first, we concatenate $3D$ coordinates of $12$ joints and then feed to our RNN network. Finally, we take the final state of the network and send it to a softmax layer and get prediction probabilities over our classes.
+ASL signs are usually performed using two hands, head movements and in several  
+cases facial expressions. {\bf AL-provide examples of signs that show facial expressions. see our proposal}. Motion dynamics of 
+two hands are responsible for creating different cues for various signs. Each joint in two hands and face area follows a specific sequential pattern for a particular gesture sign. For example, from Figure~\ref{fig:ac_person1} we see that 
+the person is performing gesture for \textit{air condition}. We can see that, for this sign first, one has to lift and show palm area of the left hand and then he/she has to lift both hands and make a back and forth motion with all fingers. This is basically a sequence of joints in both hands. We propose to use the LSTM and GRU-based LSTM models for modeling these 
+sequential dependencies for distinguishing between different ASL signs. 
+
+We notice that the joints located above the waist are mostly useful in case of sign language. Hence, we take only $12$ joints into
+consideration for  our experiments. These joints come from both hands, head, neck and spine area. Figure~\ref{fig:rnn_impl} shows our implementation. For each time step, first, we concatenate $3D$ coordinates of $12$ joints and then feed to our RNN network. Finally, we take the final state of the network and feed 
+it to a softmax layer to 
+get prediction probabilities over our classes.
+
+
 \section{Experiments}
-In this section, we are going to describe all of our experimental designs. First we are going to explain how we evaluated model performances. We are also going to describe a calibration mechanism we proposed to find a good seed percentage of train data for test person. Then we are going to present implementation details and results we got from experiments. 
+In this section, we provide an overview of the proposed experiments along with a protocol of dataset collection. 
+
+%We are also going to describe a calibration mechanism we proposed to find a good seed
+Rpercentage of train data for test person. Then we are going to present implementation details and results we got from experiments. 
 \begin{figure*}[h]
 	\begin{center}
 		%\fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
@@ -479,8 +516,6 @@ In this section, we are going to describe all of our experimental designs. First
 	\caption{Skeleton visualization of classes in the dataset -- a. Air condition, b. Wake up, c. Interpreter, d. Door open, e. Door close, f. Thermostat on}
 	\label{fig:sk_dat_viz}
 \end{figure*}
-
-\section{Experiments}
 
 \subsection{Data collection protocol}
 
