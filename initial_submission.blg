@@ -3,8 +3,13 @@ The style file: ieee.bst
 Database file #1: egbib.bib
 Warning--entry type for "copycat_zafrulla" isn't style-file defined
 --line 1 of file egbib.bib
+I was expecting a `,' or a `}'---line 422 of file egbib.bib
+ : 
+ : keywords={},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
 A bad cross reference---entry "DBLP:conf/cvpr/KeBASB17"
 refers to entry "DBLP:conf/cvpr/2017", which doesn't exist
 Warning--I didn't find a database entry for "DBLP:conf/cvpr/2017"
 Warning--can't use both author and editor fields in Cooper2017
-(There was 1 error message)
+(There were 2 error messages)
