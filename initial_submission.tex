@@ -582,7 +582,13 @@ a fix number of frames from each sample. We used this fixed number \textit{T} as
 
 \subsection{Evaluation protocol}
 
-Our experiment on the dataset is two fold. First, we did experimentation with two deep learning sequence models, namely GRU and LSTM. Also, we implemented a baseline method based on dynamic time warping (DTW). We proposed a calibration mechanism which essentially infers what fraction of data from an unseen test subject is needed to boost performance of our models. This calibration experiment is done in cross subject manner \eg, we train our models on some subjects and test on a different subject. This makes a lot of sense in real life situation where a trained model has to perform well on data it has not seen yet. 
+Our experiment on the dataset is two fold. First, we did experimentation 
+with two deep learning sequence models, namely GRU and LSTM. Also, we 
+implemented a baseline method based on dynamic time warping (DTW). We proposed a calibration mechanism which essentially infers what fraction of data from an unseen test subject is needed to boost performance of our models. This calibration experiment is done in cross subject manner \eg, we train our models on some subjects and test on a different subject. This makes a lot of sense in real life situation where a trained model has to perform well on data it has not seen yet. 
+
+{\bf - Al write a detailed subsection on dtw and how it is implementented 00 call that subsection comparative methods.}
+
+{\bf - the experimental protocol should be about how you train the models and how you benchmark the results
 
 \begin{table}[h]
 	\begin{center}
@@ -601,6 +607,7 @@ Our experiment on the dataset is two fold. First, we did experimentation with tw
 	\caption{Different terminologies regarding data split for one test subject}
 	\label{table:terminology_eval}
 \end{table}
+
 Table ~\ref{table:terminology_eval} represents some terminologies helpful to understand calibration mechanism described next.
 
 We have data on four different subjects. First, we choose a test subject and take out $50\%$ of data from this subject as test data say $D_{test}$. We use other $50\%$ of data as seed data say, $D_{seed}$ to train model along with the data from other three subjects say, $D_{train}$. We first train the model only with $D_{train}$ and test on $D_{test}$. Then we train our model with $D_{train}$ and $10\%$ from $D_{seed}$ and again test on $D_{test}$. Then again we train the model with $D_{train}$ and this time $20\%$ of $D_{seed}$ and test on $D_{test}$. As we increase the seed data in our training data, we should expect better test accuracy. We keep doing this until we use up to full $D_{seed}$ for training with $D_{train}$ and record different testing results on $D_{test}$. We repeat the whole procedure by taking each subject as a test subject one at a time. We want to see here what fraction of seed data is required during training to get a good performance from our model. Figure~\ref{fig:train_test_dat} shows data splitting strategy for better understanding.
@@ -616,10 +623,24 @@ We have data on four different subjects. First, we choose a test subject and tak
 
 
 \subsection{Parameter Selection}
-We used same value for hyper-parameters such as learning rate, state size of RNNs, batch size etc. for both compared models. We did a grid search for finding best hyper-parameters. Our experiments found the best learning rate as $5e^{-4}$ and the state size for RNNs as $36$. For each joint state size is $3$ which gives us the whole state size of $36$ for $12$ joints. We used Adam Optimizer for optimizing our networks~\cite{DBLP:journals/corr/KingmaB14}. We used this optimizer because it has shown superior performance in training different types of network. It also adapts learning rate and decay rate as training continues. We used mini-batch size of $1$ which means the network updates it's parameter after seeing one training example. We keep training our network until a good accuracy is achieved. However, to battle over-fitting of the network, we followed early stopping strategy. If there is no increase in the testing accuracy for $40$ epochs, we decided to stop training. 
+
+We used same value for hyper-parameters such as learning rate, state size of RNNs and 
+batch size  for both the LSTM models. We performed 
+a grid search for finding best hyper-parameters. Our experiments found the best learning rate as $5e^{-4}$ and the state size for RNNs as $36$. For each joint, the 
+state size is $3$ which gives us the total 
+state size of $36$ for $12$ joints. We used Adam Optimizer for optimizing our networks~\cite{DBLP:journals/corr/KingmaB14}. We used this 
+optimizer because it has shown superior performance in training different types of network. It also adapts learning rate and 
+decay rate as training continues. We used mini-batch size of $1$ which means the network updates it's parameter after seeing one training example. We keep training our network until a good accuracy is achieved on a {\bf XXX CHECK validation set}. To avoid over-fitting of the network 
+we follow the 
+early stopping strategy. If there is no increase in the test accuracy for $40$ epoch  we  stop training. 
 
 \subsection{Implementation Details}
-We implemented our models using TensorFlow deep learning library version $1.7$ \footnote{https://www.tensorflow.org/}. These experiments were run on ARGO, a research computing cluster provided by the Office of Research Computing at George Mason University, VA \footnote{URL:http://orc.gmu.edu}.  {\bf Describe Argo nodes in 2 lines and say all run times were reported on that machine configuration}
+
+We implemented our models using TensorFlow deep learning library 
+version $1.7$ \footnote{https://www.tensorflow.org/}. These experiments were run on ARGO, a research computing 
+cluster provided by the Office of Research Computing at 
+George Mason University, VA \footnote{URL:http://orc.gmu.edu}.  {\bf Describe Argo nodes in 2 lines and say all run times were reported on that machine configuration}
+
 
 \section{Results}
 
