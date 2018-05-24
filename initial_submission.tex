@@ -415,7 +415,10 @@ In this section, we are going to describe all of our experimental designs. First
 	\label{fig:sk_dat_viz}
 \end{figure*}
 
-\subsection{Evaluation criteria}
+\section{Experiments}
+
+\subsection{Evaluation protocol}
+
 Our experiment on the dataset is two fold. First, we did experimentation with two deep learning sequence models, namely GRU and LSTM. Also, we implemented a baseline method based on dynamic time warping (DTW). We proposed a calibration mechanism which essentially infers what fraction of data from an unseen test subject is needed to boost performance of our models. This calibration experiment is done in cross subject manner \eg, we train our models on some subjects and test on a different subject. This makes a lot of sense in real life situation where a trained model has to perform well on data it has not seen yet. 
 
 \begin{table}[h]
@@ -447,7 +450,15 @@ We have data on four different subjects. First, we choose a test subject and tak
 	\caption{Train and test data split for a test person}
 	\label{fig:train_test_dat}
 \end{figure}
-\subsection{Results and discussions}
+
+
+\subsection{Parameter Selection}
+We used same value for hyper-parameters such as learning rate, state size of RNNs, batch size etc. for both compared models. We did a grid search for finding best hyper-parameters. Our experiments found the best learning rate as $5e^{-4}$ and the state size for RNNs as $36$. For each joint state size is $3$ which gives us the whole state size of $36$ for $12$ joints. We used Adam Optimizer for optimizing our networks~\cite{DBLP:journals/corr/KingmaB14}. We used this optimizer because it has shown superior performance in training different types of network. It also adapts learning rate and decay rate as training continues. We used mini-batch size of $1$ which means the network updates it's parameter after seeing one training example. We keep training our network until a good accuracy is achieved. However, to battle over-fitting of the network, we followed early stopping strategy. If there is no increase in the testing accuracy for $40$ epochs, we decided to stop training. 
+
+\subsection{Implementation Details}
+We implemented our models using TensorFlow deep learning library version $1.7$ \footnote{https://www.tensorflow.org/}. These experiments were run on ARGO, a research computing cluster provided by the Office of Research Computing at George Mason University, VA \footnote{URL:http://orc.gmu.edu}.  {\bf Describe Argo nodes in 2 lines and say all run times were reported on that machine configuration}
+
+\section{Results}
 
 Table ~\ref{table:result_table} shows the classification 
 performance of the LSTM and GRU in comparison to the baseline DTW-based approach. We follow the experimental protocol as described in 
@@ -573,8 +584,7 @@ Figure~\ref{fig:cm_zero} shows the
 We also tested our model in a  conventional train test split manner. In that case, we took $30\%$ of whole data as test data. Table~\ref{table:result_conv} shows accuracy for both type of RNN models after performing k-fold cross validation {\bf Al Amin is it k-fold or test/train split}. We did not perform DTW in this experiment since the pairwise computation is time consuming. Further, the scope of  this work is to initiate sequence modeling using deep learning architectures for ASL recognition.
 
  
-\subsection{Implementation and parameter selection}
-We used same value for hyper-parameters such as learning rate, state size of RNNs, batch size etc. for both compared models. We did a grid search for finding best hyper-parameters. Our experiments found the best learning rate as $5e^{-4}$ and the state size for RNNs as $36$. For each joint state size is $3$ which gives us the whole state size of $36$ for $12$ joints. We used Adam Optimizer for optimizing our networks~\cite{DBLP:journals/corr/KingmaB14}. We used this optimizer because it has shown superior performance in training different types of network. It also adapts learning rate and decay rate as training continues. We used mini-batch size of $1$ which means the network updates it's parameter after seeing one training example. We keep training our network until a good accuracy is achieved. However, to battle over-fitting of the network, we followed early stopping strategy. If there is no increase in the testing accuracy for $40$ epochs, we decided to stop training. We implemented our models using TensorFlow deep learning library version $1.7$ \footnote{https://www.tensorflow.org/}. These experiments were run on ARGO, a research computing cluster provided by the Office of Research Computing at George Mason University, VA \footnote{URL:http://orc.gmu.edu}. 
+
 
 \section{Conclusion}
 A multi-modal dataset for ASL recognition is introduced and made public. Dataset consists of total $480$ important signs related to daily activities of deaf or hard-of-hearing people. A cross subject evaluation technique is shown and experimental result shows high testing accuracy. Our proposed calibration mechanism shows what percentage of training data is required from a subject to boost performance. Although, the margin of the dataset is not large, our result suggests a promising direction towards sign language recognition research. Implemented methods show effectiveness of sequential models (RNNs) in practical problem solving. Our future plan is to build a large scale benchmark dataset for ASL recognition by augmenting the current dataset and develop machine learning models that can recognize sentence level ASL.
