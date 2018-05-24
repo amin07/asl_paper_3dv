@@ -292,68 +292,7 @@ joints \footnote{https://msdn.microsoft.com/en-us/library/microsoft.kinect.joint
 	\label{fig:kinect_sk}
 \end{figure}
 
-this direction and made the dataset publicly available.  
 
-
-\subsection{Data collection protocol}
-
-Since no skeletal dataset was publicly available for
-ASL, the first goal of this project is to build our own 
-database of ASL signers. This database is made publicly available here \footnote{XXX}.
-
-{\bf Al-Amin add a link to the dataset}
-%
-
-
-
-Specifically, we collected  ASL samples 
-for $\number4$ signers performing 
-  $\number6$ daily activities related signs with each ``sign'' repeated 20 times. This resulted in a total of 480 samples 
-  across the four participants. Motivated by our overall objective to develop
-  accessible technologies for deaf and hard of hearing persons, we chose 
-  six activities that were considered as important in their daily life. Table \ref{table:asl_signs} 
-  shows these six ASL signs. We used the Kinect v2.0 for the data collection. For each participant 
-the sensor was placed at different distances from the participant for the 
-different repetitions. This was done to simulate the real world scenarion of having the external sensor 
-at different distances from the end user. 
-
-Figure~\ref{fig:ac_person1} shows an examplar data. It shows six frames from the signing of 
-\textit{air conditioning} at the top with 
-skeletal joints drawn  to them at the bottom.  The skeleton tracking data for the six signs 
-are shown in Figure \ref{XXXX}.
-
-
-\begin{table}[h]
-	\begin{center}
-		\begin{tabular}{|c|c|c}
-			\hline
-			Wake Up & Turn on Thermostat\\
-			\hline
-			Interpreter & Air Condition\\
-			\hline
-			Open Door & Close Door\\
-			\hline
-		\end{tabular}
-	\end{center}
-	\caption{Selected ASL Signs.}
-	\label{table:asl_signs}
-\end{table}
-
-\subsection{Preprocessing}
-Kinect skeleton sequences are 
-captured in camera coordinate system \ie, the 
-camera position is considered 
-the origin. To make sequences invariant to different 
-camera positions and body-shapes we convert sequences 
-into body coordinate system. We pick a joint location 
-and make it the 
-origin and then  subtract $(x, y, z)$ locations of all
-other joints from it. Finally, the 
-different collected samples have
-different frame lengths. The video file with $32$ frame rate has negligible difference between two consecutive frames. Hence, we sample 
-a fix number of frames from each sample. We used this fixed number \textit{T} as  $20$ and have a frame rate of XXX frames/s. 
-
-{\bf Al - see above XXX}
 
 \section{Sequential deep learning for ASL}
 In this section, we are going to describe several sequential deep learning models and show how we can use those machine learning models for ASL recognition. Like most of the machine learning models, artificial neural networks (ANN) learn a mapping function from an input domain to an output. Usually, inputs to an ANN is a $1$D or multidimensional vector and output is a $1$D vector. Training procedure starts with initial values for network parameters. The parameters are updated using training data with back propagation algorithm. 
@@ -475,6 +414,68 @@ In this section, we are going to describe all of our experimental designs. First
 \end{figure*}
 
 \section{Experiments}
+
+\subsection{Data collection protocol}
+
+Since no skeletal dataset was publicly available for
+ASL, the first goal of this project is to build our own 
+database of ASL signers. This database is made publicly available here \footnote{XXX}.
+
+{\bf Al-Amin add a link to the dataset}
+%
+
+
+
+Specifically, we collected  ASL samples 
+for $\number4$ signers performing 
+  $\number6$ daily activities related signs with each ``sign'' repeated 20 times. This resulted in a total of 480 samples 
+  across the four participants. Motivated by our overall objective to develop
+  accessible technologies for deaf and hard of hearing persons, we chose 
+  six activities that were considered as important in their daily life. Table \ref{table:asl_signs} 
+  shows these six ASL signs. We used the Kinect v2.0 for the data collection. For each participant 
+the sensor was placed at different distances from the participant for the 
+different repetitions. This was done to simulate the real world scenarion of having the external sensor 
+at different distances from the end user. 
+
+Figure~\ref{fig:ac_person1} shows an examplar data. It shows six frames from the signing of 
+\textit{air conditioning} at the top with 
+skeletal joints drawn  to them at the bottom.  The skeleton tracking data for the six signs 
+are shown in Figure \ref{XXXX}.
+
+
+\begin{table}[h]
+	\begin{center}
+		\begin{tabular}{|c|c|c}
+			\hline
+			Wake Up & Turn on Thermostat\\
+			\hline
+			Interpreter & Air Condition\\
+			\hline
+			Open Door & Close Door\\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{Selected ASL Signs.}
+	\label{table:asl_signs}
+\end{table}
+
+\subsection{Preprocessing}
+Kinect skeleton sequences are 
+captured in camera coordinate system \ie, the 
+camera position is considered 
+the origin. To make sequences invariant to different 
+camera positions and body-shapes we convert sequences 
+into body coordinate system. We pick a joint location 
+and make it the 
+origin and then  subtract $(x, y, z)$ locations of all
+other joints from it. Finally, the 
+different collected samples have
+different frame lengths. The video file with $32$ frame rate has negligible difference between two consecutive frames. Hence, we sample 
+a fix number of frames from each sample. We used this fixed number \textit{T} as  $20$ and have a frame rate of XXX frames/s. 
+
+{\bf Al - see above XXX}
+
+
 
 \subsection{Evaluation protocol}
 
