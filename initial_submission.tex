@@ -340,7 +340,20 @@ are shown in Figure \ref{XXXX}.
 \end{table}
 
 \subsection{Preprocessing}
-Kinect skeleton sequences are captured in camera coordinate system \ie, camera position is the origin. To make sequences invariant to different camera positions and body-shapes we convert sequences into body coordinate system. We pick a joint location and make it origin, then we subtract $(x, y, z)$ locations of all other joints from it. Finally, different collected sample has different frame length. The video file with $32$ frame rate has negligible difference between two consecutive frames. Hence, we sampled a fix number of frames from each sample. We used this fixed number \textit{T} to be $20$. 
+Kinect skeleton sequences are 
+captured in camera coordinate system \ie, the 
+camera position is considered 
+the origin. To make sequences invariant to different 
+camera positions and body-shapes we convert sequences 
+into body coordinate system. We pick a joint location 
+and make it the 
+origin and then  subtract $(x, y, z)$ locations of all
+other joints from it. Finally, the 
+different collected samples have
+different frame lengths. The video file with $32$ frame rate has negligible difference between two consecutive frames. Hence, we sample 
+a fix number of frames from each sample. We used this fixed number \textit{T} as  $20$ and have a frame rate of XXX frames/s. 
+
+{\bf Al - see above XXX}
 
 \section{Sequential deep learning for ASL}
 In this section, we are going to describe several sequential deep learning models and show how we can use those machine learning models for ASL recognition. Like most of the machine learning models, artificial neural networks (ANN) learn a mapping function from an input domain to an output. Usually, inputs to an ANN is a $1$D or multidimensional vector and output is a $1$D vector. Training procedure starts with initial values for network parameters. The parameters are updated using training data with back propagation algorithm. 
