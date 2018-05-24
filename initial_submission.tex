@@ -447,8 +447,20 @@ We have data on four different subjects. First, we choose a test subject and tak
 	\caption{Train and test data split for a test person}
 	\label{fig:train_test_dat}
 \end{figure}
-\subsection{Results and discussions}
-We got an almost similar type of results from both of LSTM and GRU implementation. However, result for DTW implementation is little different. We found that $30\%$ to $50\%$ data from the test subject as seed is good enough to give a performance boost. For DTW, accuracy is relatively lower with $0\%$ seed. But, with small amount of seed ($10\%-20\%$), it reaches highest accuracy for itself. This behavior is desirable because, DTW compares distances of one sample of test set with every other sample in training set and with little introduction of data from same class and subject (seed) would always give minimum distance between test sample and seed. Table~\ref{table:result_table} shows the results for each combination of a test person, a \% of seed data used in training for that person and a network type.
+\
+subsection{Results and discussions}
+
+Table ~\ref{table:result_table} shows the classification 
+performance of the LSTM and GRU in comparison to the baseline DTW-based approach. We follow the experimental protocol as described in 
+Section \ref{xx} where 0\% seed data indicates cross-subject performance where no training data from the subject (person) in test is used during the training phase. 
+We observe that the LSTM/GRU models outperform the DTW by XX\% on average across the four subjects. As we increase the amount of seed data from the person 
+under test set we see that with 30\% of data yields high classification performance results.  For DTW approach, the 
+ accuracy is relatively lower with $0\%$ seed. But, with small amount of seed ($10\%-20\%$), it reaches accuracy in the range of XX-YYY\%. DTW compares the 
+ distances of one sample of test set with every other sample in training set and with little introduction of data from same class and subject (seed) would always give minimum distance between test sample and seed. Table~\ref{table:result_table} shows the results for each combination of a test person, a \% of seed data used in training for that person and a network type.
+ 
+ 
+ {\bf Al Amin - why is the DTW result 54\% in 10\%}
+ 
 \begin{table}[h]
 	\begin{center}
 		\begin{tabular}{|m{1em} | m{3em} | m{1.5em} | m{1.5em} | m{1.5em} |m{1.5em} |m{1.5em} |m{1.5em} |}
@@ -494,7 +506,7 @@ We got an almost similar type of results from both of LSTM and GRU implementatio
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Test accuracies for each combination of test person, method type and \% of data from test subject used in training. $P_i$ denotes the $i^{th}$ person and $\bar{P}$ denotes the average accuracy of all subjects}
+	\caption{Classification performance across four subjects  $P_i$ denotes the $i^{th}$ subject and $\bar{P}$ denotes the average accuracy of all subjects}
 	\label{table:result_table}
 \end{table}
 
@@ -550,11 +562,16 @@ We got an almost similar type of results from both of LSTM and GRU implementatio
 %	\label{fig:result_comp}
 %\end{figure*}
 We observe from the result that the highest accuracy is obtained using $30\%$ or more seed data. This suggests that even if we have a small amount of seed data for a test persons, our system can boost up to a higher accuracy. In a practical scenario, system will be able to recognize new subjects correctly within a short period of subject's interaction with the system. Although DTW achieve comparable results in some cases, it is not practical for large operational system because it takes too much time to compute distances with all other samples.
+{\bf Al Amin do you have a TABLE on time}
 %Figure~\ref{fig:result_comp} shows plots of test accuracy vs percentage of data used in training. It shows the LSTM results at the top and the GRU results at the bottom. Plots are also suggesting that $30\%$ or more of seed data is good enough for a performance increase to the model. We also analyzed confusion matrix to see what classes confuses each other and found that increasing percentage of seed data in training decreases confusion. 
 
-Figure~\ref{fig:cm_zero} shows confusion matrix when no seed data is used in training for LSTM model. We can see that sign ``Close Door'' confuses with signs ``Thermostat On'' and ``Open Door''. However, in Figure~\ref{fig:cm_thirty} we observe that, with only increase of seed data to $30\%$ in training confusion reduces significantly. We can see from skeleton visualization in Figure~\ref{fig:sk_dat_viz} that, ``Close Door'', ``Thermostat On'' and ``Open Door'' are somewhat similar in terms of joint movements. That's why the confusion occurs. But, with small amount of seed data, models learn to capture minute details and gain higher accuracy.
-
-We also tested our model in conventional train test split manner. In that case, we took $30\%$ of whole data as test data. Table~\ref{table:result_conv} shows accuracy for both type of RNN models after performing k-fold cross validation. We did not perform DTW in this experiment since it takes too much time and also depends on distance computation. Our goal of this work is to initiate sequence modeling using deep learning architectures for ASL recognition.
+Figure~\ref{fig:cm_zero} shows the 
+ confusion matrix  across the six classes when no seed data is used in training for LSTM model. We can see that for the 
+ sign ``Close Door'' is confused with the sign ``Thermostat On'' and ``Open Door''. However, in Figure~\ref{fig:cm_thirty} we observe that, with only increase of seed data to $30\%$ in training  reduces these mis-predictions significantly. We can see from skeleton visualization in Figure~\ref{fig:sk_dat_viz} that the signs for 
+ ``Close Door'', ``Thermostat On'' and ``Open Door'' are  similar with regards to the joint movements. 
+ 
+ 
+We also tested our model in a  conventional train test split manner. In that case, we took $30\%$ of whole data as test data. Table~\ref{table:result_conv} shows accuracy for both type of RNN models after performing k-fold cross validation {\bf Al Amin is it k-fold or test/train split}. We did not perform DTW in this experiment since the pairwise computation is time consuming. Further, the scope of  this work is to initiate sequence modeling using deep learning architectures for ASL recognition.
 
  
 \subsection{Implementation and parameter selection}
