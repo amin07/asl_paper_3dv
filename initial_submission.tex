@@ -262,10 +262,28 @@ Motivated by successful use of skeleton data in activity recognition, our approa
 %\label{fig:long}
 %\label{fig:onecol}
 %\end{figure}
+
 \section{Modeling sign language}
 
 %Most of the dataset in literature used RGB video in ASL recognition. 
-Most of the current sign language recognition system use RGB video data as input. Using RGB data there is no way to track a specific body location, such as hand tip, wrist, neck etc. But, to correctly recognize gestures, motion trajectory of each body part could be useful. With the advent of Microsoft Kinect sensor, it is possible to track several specific body locations. Specifically, Kinect version $2$ can track $25$ body joints. Kinect does this by exploiting depth information in video and using a machine learning model embedded inside it. This process is called skeletal tracking. Figure~\ref{fig:kinect_sk} shows how Kinect sees a person as a configuration of skeletal joints \footnote{https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx}. 
+Most of the 
+current sign language recognition system use 
+RGB video data as input. Using RGB data there is no way 
+to track a specific body location, such as hand tip, wrist and neck. However, 
+to correctly recognize gestures, motion trajectory of each body 
+part could be useful. The infrared-based sensors like 
+Microsft Kinect can provide depth and trajectory information 
+for several body locations. 
+Specifically, the Kinect v$2$ can 
+track $25$ body joints. Kinect does this by exploiting 
+depth information and uses 
+a machine learning model embedded inside it. 
+%
+This process is called skeletal tracking. Figure~\ref{fig:kinect_sk} shows
+how Kinect sees a person as a configuration of skeletal 
+joints \footnote{https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx}. 
+
+
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=.8\linewidth]{kinect_sk}
@@ -273,9 +291,37 @@ Most of the current sign language recognition system use RGB video data as input
 	\caption{Kinect skeletal body configuration}
 	\label{fig:kinect_sk}
 \end{figure}
-Since no skeletal dataset was publicly available for ASL, we built our own dataset to initiate research in this direction and made the dataset publicly available.  
-\subsection{Data collection}
-We collected $480$ ASL samples for $\number4$ signers and $\number6$ daily activities related signs. Since our main goal of this work is to help deaf and hearing impaired people, we chose six activities that are considered important for them in daily life. Those are listed in Table~\ref{table:asl_signs}. For each person, we collected $\number20$ samples for each sign. In this way, we ended up with total $20 \times 6 \times 4$ data samples. We used Kinect version $2$ sensor for data collection. For each performer we put the sensor in different distances from the person to make the dataset more challenging and realistic. Figure~\ref{fig:ac_person1} shows an example of data. It shows six frames from the gesture \textit{air conditioning} at the top and skeletal joints drawn to them at the bottom.
+
+this direction and made the dataset publicly available.  
+
+
+\subsection{Data collection protocol}
+
+Since no skeletal dataset was publicly available for
+ASL, the first goal of this project is to build our own 
+database of ASL signers. This database is made publicly available here \footnote{XXX}.
+
+{\bf Al-Amin add a link to the dataset}
+%
+
+
+
+Specifically, we collected  ASL samples 
+for $\number4$ signers performing 
+  $\number6$ daily activities related signs with each ``sign'' repeated 20 times. This resulted in a total of 480 samples 
+  across the four participants. Motivated by our overall objective to develop
+  accessible technologies for deaf and hard of hearing persons, we chose 
+  six activities that were considered as important in their daily life. Table \ref{table:asl_signs} 
+  shows these six ASL signs. We used the Kinect v2.0 for the data collection. For each participant 
+the sensor was placed at different distances from the participant for the 
+different repetitions. This was done to simulate the real world scenarion of having the external sensor 
+at different distances from the end user. 
+
+Figure~\ref{fig:ac_person1} shows an examplar data. It shows six frames from the signing of 
+\textit{air conditioning} at the top with 
+skeletal joints drawn  to them at the bottom.  The skeleton tracking data for the six signs 
+are shown in Figure \ref{XXXX}.
+
 
 \begin{table}[h]
 	\begin{center}
@@ -289,7 +335,7 @@ We collected $480$ ASL samples for $\number4$ signers and $\number6$ daily activ
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Selected Commands for data collection and experiment}
+	\caption{Selected ASL Signs.}
 	\label{table:asl_signs}
 \end{table}
 
