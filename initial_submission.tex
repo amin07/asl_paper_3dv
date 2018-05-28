@@ -574,8 +574,7 @@ a fix number of frames from each sample. We used this fixed number \textit{T} as
 
 \subsection{Evaluation protocol}
 \label{sec:ev_prot}
-Our experiment on the dataset is two fold. First, we did experimentation 
-with two deep learning sequence models (GRU, LSTM)  and a dynamic time warping (DTW) based comparative method. Secondly, we proposed a calibration mechanism which essentially can infer what fraction of data from an unseen test subject is needed to boost performance of our models. This calibration experiment is done in cross subject manner \eg, we train our models on some subjects and test on a different subject. This makes a lot of sense in real life situation where a trained model has to perform well on unseen data. 
+Our experiment on the dataset is two fold. First, we proposed a calibration mechanism which essentially can infer what fraction of data from an unseen test subject is needed to boost performance of our models. This calibration experiment is done in cross subject manner \eg, we train our models on some subjects and test on a different subject. This makes a lot of sense in real life situation where a trained model has to perform well on unseen data. We compared results with a DTW based baseline. Secondly, we did a k-fold cross validation across RNN variations.
 
 %{\bf - Al write a detailed subsection on dtw and how it is implementented 00 call that subsection comparative methods.}
 
