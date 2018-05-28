@@ -53,13 +53,13 @@ First line of institution2 address\\
 
 %%%%%%%%% ABSTRACT
 \begin{abstract}
-Video based sign language recognition is a mature problem in the computer vision community. With the recent upsurge of depth sensor, 3D video data -- RGB with depth information -- has become a popular choice for video analysis because of its extra depth modality. Another type of 3D data -- 3D skeleton data -- has shown extensive usage in human activity understanding and become part of state-of-art methods in this domain. Despite having similarity with the human activity recognition, use of 3D skeleton data in sign language recognition is scarce. One of the few reasons behind this is unavailability of a benchmark public dataset. In this paper, we introduce a 3D skeleton dataset for American sign language (ASL) recognition. The dataset has RGB, depth, skeleton modalities. We also implemented different recurrent neural network (RNN) based architectures and compared with dynamic time warping (DTW) based baseline. We evaluated our models in cross subject criteria. In addition to that, we proposed a calibration mechanism for RNN models. Calibration mechanism determines what fraction of train data we need for a test subject to boost models' performance for that subject. Experimental results show that, RNN based methods acquire close to $100\%$ test accuracy in most of the cases. The introduced dataset will initiate research in the direction of deep learning sequence modeling for sign language recognition. 
+Video based sign language recognition is a mature problem in the computer vision community. With the recent upsurge of depth sensor, 3D video data -- RGB with depth information -- has become a popular choice for video analysis because of its extra depth modality. Another type of 3D data -- 3D skeleton data -- has shown extensive usage in human activity understanding and become part of state-of-art methods in this domain. Despite having similarity with the human activity recognition, use of 3D skeleton data in sign language recognition is scarce. One of the few reasons behind this is the unavailability of a benchmark public dataset. In this paper, we introduce a 3D skeleton dataset for American sign language (ASL) recognition. The dataset has RGB, depth and skeleton modalities. We also implemented different recurrent neural network (RNN) based architectures and compared those with dynamic time warping (DTW) based baseline. We evaluated our models in cross subject criteria. In addition to that, we proposed a calibration mechanism for RNN models. Calibration mechanism determines what fraction of train data do we need for a test subject to boost models' performance for that subject. Experimental results show that, RNN based methods acquire close to $100\%$ test accuracy in most of the cases. The introduced dataset will initiate research in the direction of deep learning based sequence modeling for sign language recognition. 
 \end{abstract}
 
 %%%%%%%%% BODY TEXT
 \section{Introduction}
 
-According to National Institute on Deafness and Other Communication Disorders, one in thousand infants is born deaf, while an additional one to six per thousand are born with hearing loss of different levels~\cite{3072291}. Sign language is commonly used by Deaf and Hard-of-Hearing(DHH) people to communicate via hand gestures. American sign language (ASL) is the third most commonly used language among monolinguals in USA and is used by around half a million of people~\cite{sign_lang_study}. An automatic sign language recognizer enables an ASL user to translate the sign language to written text or speech, in turn allowing them to communicate with people who are not familiar with ASL. With recent advancements in Internet-of-Things (IoT) devices, there is a tremendous rise in popularity of personal digital assistants. The digital assistants are available on user's personal and wearable devices (e.g., Google Now, Amazon Alexa, Siri, etc.) and also in the form of standalone devices (such as Amazon Echo and Google Home smart speakers). These devices are primarily controlled through voice, and hence, their functionality is not readily available to DHH users. An automatic sign recognizer can also enable the interaction between a DHH user and a personal digital assistant. 
+According to National Institute on Deafness and Other Communication Disorders, one in thousand infants is born deaf, while an additional one to six per thousand are born with hearing loss of different levels~\cite{3072291}. Sign language is commonly used by Deaf and Hard-of-Hearing(DHH) people to communicate via hand gestures. American sign language (ASL) is the third most commonly used language among monolinguals in the USA and is used by around half a million of people~\cite{sign_lang_study}. An automatic sign language recognizer enables an ASL user to translate the sign language to written text or speech, in turn allowing them to communicate with people who are not familiar with ASL. With recent advancements in Internet-of-Things (IoT) devices, there is a tremendous rise in popularity of personal digital assistants. The digital assistants are available on user's personal and wearable devices (e.g., Google Now, Amazon Alexa, Siri, etc.) and also in the form of standalone devices (such as Amazon Echo and Google Home smart speakers). These devices are primarily controlled through voice, and hence, their functionality is not readily available to DHH users. An automatic sign recognizer can also enable the interaction between a DHH user and a personal digital assistant. 
 
 %According to National Institute on Deafness and Other Communication Disorders, one in thousand infants is born totally deaf, while an additional one to six per thousand are born with hearing loss of different levels~\cite{3072291}. Sign language is used by Deaf or Hard-of-Hearing(DHH) people to communicate among themselves. In addition to hearing difficulties, DHH people can have a hardness in understanding and speaking natural languages spoken by normal hearing people~\cite{doi:10.1080/01690965.2012.705006}. Because of that, they can not use spoken or written form of natural language to communicate with others. Sign language is the natural language to DHH people. The primary use of sign language is to communicate with other DHH people. It also allows them to develop intellectual abilities and learn social traits which are fundamental attributes any normal human being should posses as a part of society.
 
@@ -71,18 +71,18 @@ Most of the current system dealing with ASL recognition use RGB video data \cite
 Using video data, it is hardly possible to single out each different body location and associated motion sequences from a series of RGB frame. Microsoft Kinect is a 3D camera sensor which can use the depth information of a person in front of it to provide specific 3D coordinates of his/her body location across a video. This sequence of 3D body location is called skeletal data~\cite{Zhang:2012:MKS:2225053.2225203}. 
 To the best of our knowledge, there is no publicly available skeletal dataset in literature for ASL recognition. We used the Kinect sensor to collect data for ASL recognition. 
 
-With skeleton data, an ASL sign can be seen as a sequence of 3D coordinates or a 3D time series~\cite{7298714}. Accurate recognition of such data depends on how well we can model the inherent sequential pattern in data. Recurrent neural network (RNN) has shown very good performance in this type of sequential modeling~\cite{DBLP:journals/corr/Lipton15}. In this work, we are going to implement two different variants of RNN -- LSTM and GRU -- with skeletal ASL data. Success of a practical machine learning system depends on it's performance after it is being deployed. In other words, the system must do well with new subjects other than those were used in training phase of the system. To work in this direction, we proposed a calibration mechanism with our implemented system which essentially finds what fraction of data from a new subject is needed to give a performance boost to our system. Overall we have the following contributions in this work.
+With skeleton data, an ASL sign can be seen as a sequence of 3D coordinates or a 3D time series~\cite{7298714}. Accurate recognition of such data depends on how well we can model the inherent sequential pattern in data. Recurrent neural network (RNN) has shown very good performance in this type of sequential modeling~\cite{DBLP:journals/corr/Lipton15}. In this work, we are going to implement two different variants of RNN -- LSTM and GRU -- with skeletal ASL data. Success of a practical machine learning system depends on it's performance after it is being deployed. In other words, the system must do well with new subjects other than those were used in the training phase of the system. To work in this direction, we proposed a calibration mechanism with our implemented system which essentially finds what fraction of data from a new subject is needed to give a performance boost to our system. Overall we have the following contributions in this work.
 \begin{itemize}  
 	\item We introduce a new dataset for ASL recognition.
 	\item Implementation of different RNN variants to solve ASL recognition problem with skeletal data.
-	\item Lastly, we propose a calibration mechanism which will tell us what percentage of data from a test subject is needed to give a performance boost to the system.
+	\item Lastly, we propose a calibration mechanism which will tell us what percentage of data from a test subject is necessary to give a performance boost to the system.
 \end{itemize}
 
 \section{Related work}
 Most of the sign language recognition systems in the literature use RGB video data as input. These methods use Hidden Markov Models (HMM) to model the sequential dependency for the recognition system. For example Zafrulla \etal used worn colored gloves in the hands during data collection and developed an HMM based framework for ASL phrase verification \cite{copycat_zafrulla}. They also used hand crafted features from Kinect skeleton data and accelerometer worn in hand \cite{Zafrulla:2011:ASL:2070481.2070532}. Primarily, they used directional unit vectors from one joint to another and angle between different combinations of three joints. Having all features crafted, they used an HMM based framework to build the system. Huang \etal showed effectiveness of using Convolutional neural network (CNN) with RGB video data for sign language recognition \cite{7177428}. They used 3D CNN \cite{Ji:2013:CNN:2412386.2412939} to extract spatio-temporal features from the video and their method does not depend on hand crafted feature for ASL recognition. Similar type of architecture was implemented by Pigou \etal for Italian gestures \cite{978-3-319-16178-5_40}. Sun \etal adopted a different way with RGB video data \cite{Sun:2015:LSV:2753829.2629481}. They hypothesized that, not all RGB frames in a video are equally important and assigned a binary latent variable to each frame in training videos for indicating representativeness of that frame and developed a latent support vector machine model for ASL recognition. Zaki \etal proposed two new features with existing hand crafted feature and developed the system using HMM based approach \cite{ZAKI2011572}. Cooper \etal used appearance based features and divided the whole system into sub units of RGB and tracking data \cite{Cooper2017}. They also used HMM based model to solve the ASL recognition problem. 
 %All of the methods discussed so far mostly used RGB video data and HMM as their model. Although some authors tried to use tracking information, they used it along with RGB data. 
 
-To our knowledge, no prior work has used only skeletal data for ASL recognition problem. However, in a closely similar task of human action recognition, a significant amount of work has been done using tracking body joint information. Sharoudy \etal developed the largest dataset in human activity recognition in \cite{7780484}. They also proposed an extension of long short term memory(LSTM) model which leverages group motion of several body joints to recognize human activity from skeletal data. A different adaptation of the LSTM model was proposed by Jiu \etal where spatial interaction among joints was considered in addition to the temporal dynamics to achieve higher recognition performance~\cite{8101019}. Veeriah \etal proposed a LSTM network to capture the salient motion pattern of body joints~\cite{7410817}. This method takes into account the derivative of motion states associated with different body joints. Du \etal treated the whole body as a hierarchical configuration of different body parts and proposed a hierarchical RNN to recognize human activities~\cite{7298714}. Some attention based model were also proposed for human activity analysis \cite{8226767, song2016end}. There are some methods which converted skeleton sequences of body joints or RGB videos into an image representation and then applied state-of-art image recognition models to achieve good performance \cite{DBLP:conf/cvpr/KeBASB17, DBLP:journals/corr/abs-1711-05941}.
+To the best of our knowledge, no prior work has used only skeletal data for ASL recognition problem. However, in a closely similar task of human action recognition, a significant amount of work has been done using tracking body joint information. Sharoudy \etal developed the largest dataset in human activity recognition in \cite{7780484}. They also proposed an extension of long short term memory(LSTM) model which leverages group motion of several body joints to recognize human activity from skeletal data. A different adaptation of the LSTM model was proposed by Jiu \etal where spatial interaction among joints was considered in addition to the temporal dynamics to achieve higher recognition performance~\cite{8101019}. Veeriah \etal proposed a LSTM network to capture the salient motion pattern of body joints~\cite{7410817}. This method takes into account the derivative of motion states associated with different body joints. Du \etal treated the whole body as a hierarchical configuration of different body parts and proposed a hierarchical RNN to recognize human activities~\cite{7298714}. Some attention based model were also proposed for human activity analysis \cite{8226767, song2016end}. There are some methods which converted skeleton sequences of body joints or RGB videos into an image representation and then applied state-of-art image recognition models to achieve good performance \cite{DBLP:conf/cvpr/KeBASB17, DBLP:journals/corr/abs-1711-05941}.
 %All of the works mentioned here either dealt with RGB video data in case of ASL recognition or used skeleton data for human activity recognition. 
 Motivated by successful use of skeleton data in activity recognition, we adopted an approach of recognizing ASL sign using skeletal data collected from Kinect sensor.  
 
@@ -283,7 +283,7 @@ a machine learning model embedded inside it.
 %
 This process is called skeletal tracking. Figure~\ref{fig:kinect_sk} shows
 how Kinect sees a person as a configuration of skeletal 
-joints \footnote{https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx} 
+joints. \footnote{https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx} 
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=.8\linewidth]{kinect_sk}
@@ -311,12 +311,12 @@ with initial values for the different
 network parameters that are updated via the 
 back propagation algorithm. 
 %The input data goes through a non-linear transformation along the network. Using the output vector, one can do some prediction or regression tasks. The parameters of the network are learned by feeding training data to it continuously. On each iteration, first the network predicts labels for training data, then calculates loss using actual labels and finally updates the parameters based on the calculated loss. This iteration process is repeated for a predefined number of times or until a desirable accuracy is acquired on test data. While updating parameters, it starts from the output layer and move backward to the input layer. As it progresses backward, it propagates loss and calculates gradients of errors with respect to the parameters of each layer in a systematic way. Formally this is known as back propagation algorithm and it is the heart of any neural network based machine learning model. 
-The general structure of a ANN is 
-a feed forward neural network which consists of an input layer, an output layer and one or more intermediate hidden layers.  These class of 
+The general structure of an ANN is 
+a feed forward neural network, which consists of an input layer, an output layer and one or more intermediate hidden layers.  These classes of 
 networks have shown 
 strong generalization 
-performance accuracy and have the ability to capture 
-non linear mapping functions to transform the input to the outputs for classification tasks. 
+capacity and have the ability to capture 
+non linear mapping functions to transform the inputs to the outputs for classification tasks. 
 
 
 Specifically, the deep learning based 
@@ -333,7 +333,7 @@ dependencies that exists when modeling natural language text \cite{DBLP:journals
 		%\fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
 		\includegraphics[width=\linewidth]{rnn_network2}
 	\end{center}
-	\caption{An RNN networks unrolled over T time steps. At each time step the network has one raw input and one processed state input from previous time step. Combining these two it produces embedding for current time step.}
+	\caption{An RNN networks unrolled over T time steps. At each time step the network has one raw input and one processed state input from previous time step. By combining these two inputs, it produces embedding for current time step.}
 	\label{fig:rnn_network}
 \end{figure}
  
@@ -344,11 +344,11 @@ dependencies that exists when modeling natural language text \cite{DBLP:journals
 %transforming the data through its hidden layers until reaches the 
 %final layer. In other words it has to capture the patterns as a whole from the input data. %We can solve this problem if there is a mechanism which first allows us to input a portion of data in an order and then models it. Then it takes as input the second portion of the ordered data, fuses it with modeled output from the first step and then models the fused data. Keep doing this until the final portion of our ordered data will allow us to capture temporal dependencies in our data.
 
-To solve sequential modeling of data, Recurrent neural network (RNN) were 
+To solve sequential modeling of data, Recurrent neural network (RNN) was 
 introduced \cite{DBLP:journals/corr/Lipton15}. RNNs are considered a  variation of ANN and are 
 suitable for capturing temporal dynamics within 
 data. Figure \ref{fig:rnn_network} shows a high level view of such network. 
-Eq~\ref{eq:rnn_eq} shows the equations of such a  RNN. Here $x_t$ is the current input and $h_{t-1}$ is the previous RNN state. $U$ and $V$ are the network parameters associated with $x_t$ and $h_{t-1}$,
+Eq~\ref{eq:rnn_eq} shows the equations of such a  RNN. Here $\mathbf{x_t}$ is the current input and $\mathbf{h_{t-1}}$ is the previous RNN state. $U$ and $V$ are the network parameters associated with $\mathbf{x_t}$ and $\mathbf{h_{t-1}}$,
 respectively. $\phi$ is a non-linear function. Some common choices for this function are \textit{sigmoid}, \textit{ReLu} and \textit{tanh}. 
 
 \begin{equation}
@@ -372,16 +372,16 @@ basic RNN has problem dealing with long term dependencies in data \cite{DBLP:jou
 basic RNN has no control over what it should learn and what it 
 should forget. The approach keeps updating its memory which is not desirable in most practical cases. Sometimes a memory from the 
 long past could be useful for current prediction than a memory from the recent past. Another problem which makes training a RNN problematic 
-is the  vanishing gradient problem \cite{DBLP:journals/corr/abs-1211-5063}. Since,  network parameters of an RNN are shared over time, at any time step the error derivative not only depends on the current input of network but also on the previous state of the network. The 
+is the  vanishing gradient problem \cite{DBLP:journals/corr/abs-1211-5063}. Since RNN's parameters are shared over time, at any time step the error derivative not only depends on the current input of network but also on the previous state of the network. The 
 multiplicative term of error derivatives back to time step 0 is used 
-to calculate error derivative of current time. This is a modification of back propagation algorithm and known as
+to calculate the error derivative of current time. This is a modification of back propagation algorithm and known as
 back propagation through time (BPTT) \cite{58337}. If individual gradients are close to zero this multiplicative term tends towards 
 zero and eventually these 
 gradients disappear. The opposite can also happen, which is called exploding gradient problem.  However,
 this is more obvious and easy to detect. The vanishing gradient problem is not easy to detect and leads to failures. 
 
-Some solutions to above problems involve 
-careful initialization of network parameters or  early stopping  \cite{DBLP:journals/corr/abs-1211-5063}. But most effective solution is 
+Some solutions to vanishing gradient problem involve 
+careful initialization of network parameters or  early stopping  \cite{DBLP:journals/corr/abs-1211-5063}. But the most effective solution is 
 to modify the RNN architecture so that it has a memory state (cell) at every timestep input  that can control what to remember and what to forget. This architecture is referred by the 
 long short term memory (LSTM) network \cite{Hochreiter:1997:LSM:1246443.1246450}. Another similar architecture called gated recurrent unit (GRU) has been also proposed and shown to be robust
 against the 
@@ -390,7 +390,7 @@ vanishing/exploding gradient problem \cite{DBLP:journals/corr/ChoMGBSB14}.
 \subsection{Long short term memory} \label{lstm_sec}
 As we see from Eq~\ref{eq:rnn_eq}, at each time step, traditional RNN can be 
 seen as a nonlinear function of the current input and the previous step. While vanilla RNN is a 
-direct transformation from the previous state and the current input, the 
+direct transformation of the previous state and the current input, the 
 LSTM takes a different approach. It maintains an internal memory and  has a 
 mechanism to update and use that memory. The mechanism consists of four separate neural networks also 
 called gates. Figure~\ref{fig:lstm_cell} shows a cell of an LSTM network.
@@ -402,7 +402,7 @@ called gates. Figure~\ref{fig:lstm_cell} shows a cell of an LSTM network.
 %	\caption{An LSTM cell}
 %	\label{fig:lstm_cell}
 %\end{figure}
-Forget, input, update and output gates are represented by four circles and symbolized as $f_t$, $i_t$, $\tilde{C_t}$ and $o_t$, respectively. $\oplus$ and $\otimes$ represents element wise addition and multiplication, 
+Forget, input, update and output gates are represented by four circles and symbolized as $\mathbf{f_t}$, $\mathbf{i_t}$, $\mathbf{\tilde{C_t}}$ and $\mathbf{o_t}$, respectively. $\oplus$ and $\otimes$ represents an element wise addition and an multiplication, 
 respectively. $*$ represents matrix multiplication. Two vertical bars inside the rounded rectangle means the 
 concatenation operation on its inputs. 
 \begin{equation}
@@ -434,12 +434,12 @@ concatenation operation on its inputs.
 	\label{fig:lstm_gru_cells}
 \end{figure}
 
-Figure~\ref{fig:lstm_cell} shows input at the current time step $x_t$ and the 
-previous state $h_{t-1}$ enter into the cell and get concatenated. Then the forget gate processes it to remove
-unnecessary information and outputs $f_t$ which gets multiplied with the previously 
-stored memory $C_t$ and produces a refined memory for the current time. Meanwhile, the input 
+Figure~\ref{fig:lstm_cell} shows input at the current time step $\mathbf{x_t}$ and the 
+previous state $\mathbf{h_{t-1}}$ enter into the cell and get concatenated. Then the forget gate processes it to remove
+unnecessary information and outputs $\mathbf{f_t}$ which gets multiplied with the previously 
+stored memory $\mathbf{C_t}$ and produces a refined memory for the current time. Meanwhile, the input 
 and  update gate process the concatenated input and convert it into a candidate memory for the current time step. The refined memory from the previous step and proposed candidate memory of the current step get added to produce the final memory for the current step. This addition could render the output out of scale. Because of that, a squashing function (hyperbolic $tan$) is used 
-in our case. This scales the elements of the output vector into a fix range. Finally $o_t$, the output 
+in our case. This scales the elements of the output vector into a fixed range. Finally $\mathbf{o_t}$, the output 
 from output gate gets multiplied with output from the squashing function and produces the output for the current time step. Eq~\ref{eq:lstm_eq} shows the equations of LSTM where $concat(\mathbf{x},\mathbf{y})$ is 
 concatenation of input vectors $\mathbf{x}$ and $\mathbf{y}$.
 
@@ -464,7 +464,7 @@ Figure~\ref{fig:gru_cell} shows an example of GRU cell. Symbols represent simila
 %	\caption{A GRU cell}
 %	\label{fig:gru_cell}
 %\end{figure}
-To better understand GRU cell, first we have to look at the output of it. The output is formed by a weighted linear sum of two components $\tilde{h}_t$ and $h_{t-1}$ as seen from the Eq.~\ref{eq:gru_eq}. 
+To better understand GRU cell, first we have to look at the output of it. The output is formed by a weighted linear sum of two components $\mathbf{\tilde{h}_t}$ and $\mathbf{h_{t-1}}$ as seen from the Eq.~\ref{eq:gru_eq}. 
 %Here $concat(x,y)$ means concatenation of input vectors $x$ and $y$. Element wise multiplication and addition are represented by $\otimes$ and $\oplus$ respectively.
 \begin{equation}
 	\label{eq:gru_eq}
@@ -475,20 +475,20 @@ To better understand GRU cell, first we have to look at the output of it. The ou
 		\mathbf{r_t} &= \sigma(W_r*concat(\mathbf{h_{t-1}}, \mathbf{x_t})) \\
 	\end{aligned}
 \end{equation}
-$\tilde{h}_t$ represents the 
-newly proposed candidate embedding and $h_{t-1}$ is simply the previous state. Candidate embedding $\tilde{h}_t$ is a function of the current input and purified previous state. This purification is achieved by the reset gate $r_{t}$, which decides
+$\mathbf{\tilde{h}_t}$ represents the 
+newly proposed candidate embedding and $\mathbf{h_{t-1}}$ is simply the previous state. Candidate embedding $\mathbf{\tilde{h}_t}$ is a function of the current input and purified previous state. This purification is achieved by the reset gate $\mathbf{r_t}$, which decides
 what portion of the 
 previous state should contribute to the 
-candidate embedding $\tilde{h}_t$. Reset gate $r_{t}$ itself is a separate neural network and its output close to 0 means network takes a small portion of previous state to form a current candidate state embedding. The update gate $z_{t}$ decides what fractions of the candidate state and the previous state comprise the new state. It does so by taking a weighted some of the candidate state and the previous state. The weights are $z_{t}$ and $1-z_{t}$. %This whole new state is outputted where in case of LSTM, the output of the new state is controlled by an output gate as shown in Eq. ~\ref{eq:lstm_eq}.  
+candidate embedding $\mathbf{\tilde{h}_t}$. Reset gate $\mathbf{r_t}$ itself is a separate neural network and its output close to 0 means network takes a small portion of previous state to form a current candidate state embedding. The update gate $\mathbf{z_{t}}$ decides what fractions of the candidate state and the previous state comprise the new state. It does so by taking a weighted some of the candidate state and the previous state. The weights are $\mathbf{z_{t}}$ and $1-\mathbf{z_{t}}$. %This whole new state is outputted where in case of LSTM, the output of the new state is controlled by an output gate as shown in Eq. ~\ref{eq:lstm_eq}.  
 
 
 \subsection{Our approach}
-ASL signs are usually performed using two hands, head movements and in several  
+ASL signs are usually performed using both hands, head movements and in several  
 cases facial expressions. 
 %{\bf AL-provide examples of signs that show facial expressions. see our proposal}. 
 Motion dynamics of 
 two hands are responsible for creating different cues for various signs. Each joint in two hands and face area follows a specific sequential pattern for a particular gesture sign. For example, from Figure~\ref{fig:ac_person1} we see that 
-the person is performing gesture for \textit{air condition}. We can see that, for this sign first, one has to lift and show palm area of the left hand and then he/she has to lift both hands and make a back and forth motion with all fingers. This is basically a sequence of joints in both hands. We propose to use the LSTM and GRU based models for modeling these 
+the person is performing gesture for \textit{air condition}. We can see that, for this sign, first, one has to lift and show palm area of the left hand and then he/she has to lift both hands and make a back and forth motion with all fingers. This is basically a sequence of joints in both hands. We propose to use the LSTM and GRU based models for modeling these 
 sequential dependencies for distinguishing between different ASL signs. 
 
 We notice that the joints located above the waist are mostly useful in case of sign language. Hence, we take only 12 joints into
@@ -508,7 +508,7 @@ get prediction probabilities over our classes.
 
 
 \section{Experiments}
-In this section, we provide an overview of the proposed experiments along with a protocol of dataset collection. 
+In this section, we provide an overview of the proposed experiments along with a protocol for data collection. 
 We are also going to describe a calibration mechanism we propose, to find a good seed
 percentage of train data for a test person. Then we are going to present implementation details and results we got from experiments. 
 
@@ -531,10 +531,10 @@ for 4 signers performing
   six activities that were considered as important in their daily life. Table \ref{table:asl_signs} 
   shows these six ASL signs. We used the Kinect v2.0 for the data collection. For each participant 
 the sensor was placed at different distances from the participant for the 
-different repetitions. This was done to simulate the real world scenarion of having the external sensor 
+different repetitions. This was done to simulate the real world scenario of having the external sensor 
 at different distances from the end user. 
 
-Figure~\ref{fig:ac_person1} shows an examplar data. It shows six frames from the signing of 
+Figure~\ref{fig:ac_person1} shows an exemplar data. It shows six frames from the signing of 
 \textit{air conditioning} at the top with 
 skeletal joints drawn  to them at the bottom.  The skeleton tracking data for the six signs 
 are shown in Figure \ref{fig:sk_dat_viz}.
@@ -581,8 +581,6 @@ with two deep learning sequence models (GRU, LSTM)  and a dynamic time warping (
 
 %{\bf - the experimental protocol should be about how you train the models and how you benchmark the results}
 
-\subsection{Comparative method}
-We used dynamic time warping (DTW) for comparing performance with our RNN methods. It is one of the most used measure of similarity between two sequences. DTW can find optimal global alignment between two sequences. Unlike element wise euclidean distance, it takes temporal distortion into account. For this reason, even if two sequences are similar in shape but in out of phase, DTW will be able to find significant similarity. In skeletal data, each ASL sign is a combination of several body joints, 12 joints in our case. To calculate similarity between two sign, we measure the DTW distance between same joint and sum up these 12 distances to get the total similarity measure.
 \begin{figure*}
 	\begin{center}
 		%\fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
@@ -602,7 +600,7 @@ We used dynamic time warping (DTW) for comparing performance with our RNN method
 			\hline\hline
 			$D_{train}$ & Training data, whole data from the subjects other than the test subject \\
 			\hline
-			$D_{test}$ & Test data, $50\%$ data from test subject used for testing models\\
+			$D_{test}$ & Test data, $50\%$ data from test subject used for testing the models\\
 			\hline
 			$D_{seed}$ & Seed data, $50\%$ data from test subject used for boosting up model's performance on $D_{test}$\\
 			\hline
@@ -613,14 +611,17 @@ We used dynamic time warping (DTW) for comparing performance with our RNN method
 \end{table}
 
 Table \ref{table:terminology_eval} represents some terminologies helpful to understand calibration mechanism described next.
-We have data on four different subjects. First, we choose a test subject and take out $50\%$ of data from this subject as test data say $D_{test}$. We use other $50\%$ of data as seed data say, $D_{seed}$ to train model along with the data from other three subjects say, $D_{train}$. We first train the model only with $D_{train}$ and test on $D_{test}$. Then we train our model with $D_{train}$ and $10\%$ from $D_{seed}$ and again test on $D_{test}$. Then again we train the model with $D_{train}$ and this time $20\%$ of $D_{seed}$ and test on $D_{test}$. As we increase the seed data in our training data, we should expect better test accuracy. We keep doing this until we use up to full $D_{seed}$ for training with $D_{train}$ and record different testing results on $D_{test}$. We repeat the whole procedure by taking each subject as a test subject one at a time. We want to see here what fraction of seed data is required during training to get a good performance from our model. Figure~\ref{fig:train_test_dat} shows data splitting strategy for better understanding.
+We have data on four different subjects. First, we choose a test subject and take out $50\%$ of data from this subject as test data say, $D_{test}$. We use other $50\%$ of data as seed data say, $D_{seed}$ to train model along with the data from other three subjects say, $D_{train}$. We first train the model only with $D_{train}$ and test on $D_{test}$. Then we train our model with $D_{train}$ and $10\%$ from $D_{seed}$ and again test on $D_{test}$. Then again we train the model with $D_{train}$ and this time $20\%$ of $D_{seed}$ and test on $D_{test}$. As we increase the seed data in our training data, we should expect better test accuracy. We keep doing this until we use up to full $D_{seed}$ for training with $D_{train}$ and record different testing results on $D_{test}$. We repeat the whole procedure by taking each subject as a test subject one at a time. We want to see here what fraction of seed data is required during training to get a good performance from our model. Figure~\ref{fig:train_test_dat} shows data splitting strategy for better understanding.
+
+\subsection{Comparative method}
+We used dynamic time warping (DTW) for comparing performance with our RNN methods. It is one of the most used measure of similarity between two sequences. DTW can find optimal global alignment between two sequences. Unlike element wise euclidean distance, it takes temporal distortion into account. For this reason, even if two sequences are similar in shape but in out of phase, DTW will be able to find significant similarity. In skeletal data, each ASL sign is a combination of several body joints, 12 joints in our case. To calculate similarity between two sign, we measure the DTW distance between same joint and sum up these 12 distances to get the total similarity measure.
 
 \subsection{Parameter selection}
 
 We used same value for hyper-parameters such as learning rate, state size of RNNs and batch size  for both the LSTM models. We performed 
 a grid search for finding best hyper-parameters. Our experiments found the best learning rate as $5e^{-4}$ and the state size for RNNs as 60. For each joint, the state size is 5 which gives us the total 
 state size of 60 for 12 joints. We used Adam Optimizer for optimizing our networks~\cite{DBLP:journals/corr/KingmaB14}. We used this 
-optimizer because it has shown superior performance in training different types of network. It also adapts learning rate and 
+optimizer because it has shown superior performance in training different types of recurrent network. It also adapts learning rate and 
 decay rate as training continues. We used mini-batch size of 1 which means the network updates it's parameter after seeing one training example. We keep training our network until a good accuracy is achieved on the test set.
 %a {\bf XXX CHECK validation set}. 
 \begin{figure}[h]
@@ -765,8 +766,8 @@ Although DTW achieve comparable results in some cases, runtime increases rapidly
 
 Figure~\ref{fig:cm_zero} shows the 
  confusion matrix  across the six classes when no seed data is used in training for LSTM model. We can see that for the 
- sign ``Close Door'' is confused with the sign ``Thermostat On'' and ``Open Door''. However, in Figure~\ref{fig:cm_thirty} we observe that, with only increase of seed data to 30\% in training  reduces these mis-predictions significantly. We can see from skeleton visualization in Figure~\ref{fig:sk_dat_viz} that the signs for ``Open Door''
- ``Close Door'' and ``Thermostat On'' are  similar with regards to the joint movements. 
+ sign ``Close Door'' is confused with the sign ``Thermostat On'' and ``Open Door''. However, in Figure~\ref{fig:cm_thirty} we observe that, with 30\% increase of seed data in training reduces these mis-predictions significantly. We can see from skeleton visualization in Figure~\ref{fig:sk_dat_viz} that the signs for ``Open Door''
+ ``Close Door'' and ``Thermostat On'' are  similar with regards to the joint movements. That's why they get mixed up in case of no seed data. 
  
  
 We also tested our model in a  conventional train test split manner. 
@@ -777,7 +778,7 @@ We did not perform DTW in this experiment since the pairwise computation is time
 
  
 \section{Conclusion}
-A multi-modal dataset for ASL recognition is introduced. Dataset consists of total 480 samples related to six daily activities of deaf or hard-of-hearing people. A cross subject evaluation technique is shown and experimental result shows high testing accuracy. Our proposed calibration mechanism shows what percentage of training data is required from a subject to boost performance. Although, the margin of the dataset is not large, our result suggests a promising direction towards sign language recognition research. Implemented methods show effectiveness of sequential models (RNNs) in practical problem solving. Our future plan is to build a large scale benchmark dataset for ASL recognition by augmenting the current dataset and develop machine learning models that can recognize sentence level ASL.
+A multi-modal dataset for ASL recognition is introduced. Dataset consists of total 480 samples related to six daily activities of deaf or hard-of-hearing people. A cross subject evaluation technique is shown and experimental result shows high testing accuracy. The proposed calibration mechanism shows what percentage of training data is required from a subject to boost performance. Although, the margin of the dataset is not large, our result suggests a promising new direction towards sign language recognition research. Implemented methods show effectiveness of sequential models (RNNs) in practical problem solving. Our future plan is to build a large scale benchmark dataset for ASL recognition by augmenting the current dataset and develop machine learning models that can recognize sentence level ASL.
 
 
 %All text must be in a two-column format. The total allowable width of the
